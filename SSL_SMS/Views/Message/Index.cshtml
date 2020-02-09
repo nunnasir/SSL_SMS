@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SSL_SMS.DAL.MessageGroup>
+
+<h2>Group Messages</h2>
+<hr />
+
+<div class="row">
+    
+    <div class="col-sm">
+        @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+
+        <a class="btn btn-secondary" href="@Url.Action("Create", "Message")">Create New</a>
+
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GroupName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Message)
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GroupName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Message)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+
+

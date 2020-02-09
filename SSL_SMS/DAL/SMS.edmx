@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SSL_SMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ContactGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="ContactList" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Create_User" Type="nchar" MaxLength="10" />
+          <Property Name="Create_Date" Type="datetime" />
+          <Property Name="Edit_User" Type="nchar" MaxLength="10" />
+          <Property Name="Edit_Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MessageGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Create_User" Type="nchar" MaxLength="10" />
+          <Property Name="Create_Date" Type="datetime" />
+          <Property Name="Edit_User" Type="nchar" MaxLength="10" />
+          <Property Name="Edit_Date" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="SSL_SMSModelStoreContainer">
+          <EntitySet Name="ContactGroup" EntityType="Self.ContactGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MessageGroup" EntityType="Self.MessageGroup" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SSL_SMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ContactGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContactList" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Create_User" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Create_Date" Type="DateTime" Precision="3" />
+          <Property Name="Edit_User" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Edit_Date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MessageGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Create_User" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Create_Date" Type="DateTime" Precision="3" />
+          <Property Name="Edit_User" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Edit_Date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="SSL_SMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ContactGroups" EntityType="Self.ContactGroup" />
+          <EntitySet Name="MessageGroups" EntityType="Self.MessageGroup" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SSL_SMSModelStoreContainer" CdmEntityContainer="SSL_SMSEntities">
+          <EntitySetMapping Name="ContactGroups">
+            <EntityTypeMapping TypeName="SSL_SMSModel.ContactGroup">
+              <MappingFragment StoreEntitySet="ContactGroup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="ContactList" ColumnName="ContactList" />
+                <ScalarProperty Name="Create_User" ColumnName="Create_User" />
+                <ScalarProperty Name="Create_Date" ColumnName="Create_Date" />
+                <ScalarProperty Name="Edit_User" ColumnName="Edit_User" />
+                <ScalarProperty Name="Edit_Date" ColumnName="Edit_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MessageGroups">
+            <EntityTypeMapping TypeName="SSL_SMSModel.MessageGroup">
+              <MappingFragment StoreEntitySet="MessageGroup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Create_User" ColumnName="Create_User" />
+                <ScalarProperty Name="Create_Date" ColumnName="Create_Date" />
+                <ScalarProperty Name="Edit_User" ColumnName="Edit_User" />
+                <ScalarProperty Name="Edit_Date" ColumnName="Edit_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
