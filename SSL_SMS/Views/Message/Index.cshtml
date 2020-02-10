@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SSL_SMS.DAL.MessageGroup>
+﻿@model IEnumerable<SSL_SMS.Models.MessageGroupDto>
 
 <h2>Group Messages</h2>
 <hr />
@@ -10,7 +10,7 @@
             @Html.ActionLink("Create New", "Create")
         </p>*@
 
-        <a class="btn btn-secondary" href="@Url.Action("Create", "Message")">Create New</a>
+        <a class="btn btn-success btn-sm" href="@Url.Action("Create", "Message")">Create New</a>
 
         <table class="table table-bordered table-hover">
             <thead class="thead-dark">

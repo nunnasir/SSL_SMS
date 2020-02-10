@@ -11,16 +11,11 @@ namespace SSL_SMS.DAL
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class MessageGroup
     {
         public int ID { get; set; }
-        [Required]
-        [Display(Name ="Group Name")]
         public string GroupName { get; set; }
-
-        [Required]
         public string Message { get; set; }
         public string Create_User { get; set; }
         public Nullable<System.DateTime> Create_Date { get; set; }

@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using SSL_SMS.DAL;
+using SSL_SMS.Models;
 
 namespace SSL_SMS.Controllers
 {
@@ -17,7 +19,13 @@ namespace SSL_SMS.Controllers
         // GET: Message
         public ActionResult Index()
         {
-            return View(db.MessageGroups.ToList());
+            var messageGroupQuery = db.MessageGroups.ToList();
+
+            var messageGroupDto = messageGroupQuery
+                .ToList()
+                .Select(Mapper.Map<MessageGroup, MessageGroupDto>);
+
+            return View(messageGroupDto);
         }
 
         // GET: Message/Details/5
@@ -27,12 +35,13 @@ namespace SSL_SMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MessageGroup messageGroup = db.MessageGroups.Find(id);
+            var messageGroup = db.MessageGroups.Find(id);
+
             if (messageGroup == null)
             {
                 return HttpNotFound();
             }
-            return View(messageGroup);
+            return View(Mapper.Map<MessageGroup, MessageGroupDto>(messageGroup));
         }
 
         // GET: Message/Create
@@ -44,17 +53,24 @@ namespace SSL_SMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(MessageGroup messageGroup)
+        public ActionResult Create(MessageGroupDto messageGroupDto)
         {
-            if (ModelState.IsValid)
+            string filter = messageGroupDto.GroupName.Trim();
+            var existMessagetGroup = db.MessageGroups.FirstOrDefault(a => a.GroupName.Contains(filter));
+
+            if(existMessagetGroup == null && ModelState.IsValid)
             {
-                messageGroup.Create_User = "Nasir";
+                messageGroupDto.Create_User = "Nasir";
+                messageGroupDto.Create_Date = DateTime.Now;
+
+                var messageGroup = Mapper.Map<MessageGroupDto, MessageGroup>(messageGroupDto);
+
                 db.MessageGroups.Add(messageGroup);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(messageGroup);
+            return View(messageGroupDto);
         }
 
         // GET: Message/Edit/5
@@ -64,12 +80,13 @@ namespace SSL_SMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MessageGroup messageGroup = db.MessageGroups.Find(id);
+            var messageGroup = db.MessageGroups.Find(id);
+
             if (messageGroup == null)
             {
                 return HttpNotFound();
             }
-            return View(messageGroup);
+            return View(Mapper.Map<MessageGroup, MessageGroupDto>(messageGroup));
         }
 
         // POST: Message/Edit/5
@@ -78,16 +95,20 @@ namespace SSL_SMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public ActionResult Edit([Bind(Include = "GroupName,Message,Edit_User,Edit_Date")] MessageGroup messageGroup)
-        public ActionResult Edit(MessageGroup messageGroup)
+        public ActionResult Edit(MessageGroupDto messageGroupDto)
         {
             if (ModelState.IsValid)
             {
-                messageGroup.Edit_User = "Nahid";
+                messageGroupDto.Edit_User = "Nahid";
+                messageGroupDto.Edit_Date = DateTime.Now;
+
+                var messageGroup = Mapper.Map<MessageGroupDto, MessageGroup>(messageGroupDto);
+
                 db.Entry(messageGroup).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(messageGroup);
+            return View(messageGroupDto);
         }
 
         // GET: Message/Delete/5
@@ -97,22 +118,14 @@ namespace SSL_SMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MessageGroup messageGroup = db.MessageGroups.Find(id);
+            var messageGroup = db.MessageGroups.Find(id);
             if (messageGroup == null)
             {
                 return HttpNotFound();
             }
-            return View(messageGroup);
-        }
-
-        // POST: Message/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            MessageGroup messageGroup = db.MessageGroups.Find(id);
             db.MessageGroups.Remove(messageGroup);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
