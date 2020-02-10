@@ -1,0 +1,55 @@
+﻿@model SSL_SMS.ViewModels.MessageGroupVm
+
+@{
+    ViewBag.Title = "Send SMS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Send SMS</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    <div class="form-group row">
+        @*@Html.LabelFor(model => model.GroupName, htmlAttributes: new { @class = "col-sm-2 col-form-label" })*@
+        <label for="inputPassword" class="col-sm-2 col-form-label">Contact Group</label>
+        <div class="col-sm-10">
+            @*<input type="password" class="form-control" id="inputPassword" placeholder="Password">*@
+
+            @Html.DropDownListFor(c => c.MessageGroups, new SelectList(Model.MessageGroups, "ID", "GroupName"), "Select Message Group", new { @class = "form-control" })
+
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Contacts</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Message Group</label>
+        <div class="col-sm-10">
+            @*<input type="password" class="form-control" id="inputPassword" placeholder="Password">*@
+            @Html.DropDownListFor(c => c.MessageGroups, new SelectList(Model.MessageGroups, "ID", "GroupName"), "Select Message Group", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Message</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input type="submit" value="Send" class="btn btn-primary btn-sm btn-block" />
+        </div>
+    </div>
+
+}
+
+
