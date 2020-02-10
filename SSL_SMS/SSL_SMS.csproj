@@ -137,10 +137,14 @@
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\SMSController.cs" />
     <Compile Include="DAL\ContactGroup.cs">
       <DependentUpon>SMS.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\MessageGroup.cs">
+      <DependentUpon>SMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\SendSmsStatu.cs">
       <DependentUpon>SMS.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\SMS.Context.cs">
@@ -164,6 +168,7 @@
     <Compile Include="Models\ContactGroupDto.cs" />
     <Compile Include="Models\MessageGroupDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\MessageGroupVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -359,6 +364,7 @@
     <Content Include="Views\Contact\Details.cshtml" />
     <Content Include="Views\Contact\Edit.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\SMS\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

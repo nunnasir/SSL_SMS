@@ -27,5 +27,6 @@ namespace SSL_SMS.DAL
     
         public virtual DbSet<ContactGroup> ContactGroups { get; set; }
         public virtual DbSet<MessageGroup> MessageGroups { get; set; }
+        public virtual DbSet<SendSmsStatu> SendSmsStatus { get; set; }
     }
 }

@@ -14,6 +14,12 @@ namespace SSL_SMS.DAL
     
     public partial class MessageGroup
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MessageGroup()
+        {
+            this.SendSmsStatus = new HashSet<SendSmsStatu>();
+        }
+    
         public int ID { get; set; }
         public string GroupName { get; set; }
         public string Message { get; set; }
@@ -21,5 +27,8 @@ namespace SSL_SMS.DAL
         public Nullable<System.DateTime> Create_Date { get; set; }
         public string Edit_User { get; set; }
         public Nullable<System.DateTime> Edit_Date { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SendSmsStatu> SendSmsStatus { get; set; }
     }
 }

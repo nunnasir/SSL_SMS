@@ -7,6 +7,9 @@
       <Diagram DiagramId="48d6cdec9f51470ab390b58a89d21023" Name="Diagram1">
         <EntityTypeShape EntityType="SSL_SMSModel.ContactGroup" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SSL_SMSModel.MessageGroup" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSL_SMSModel.SendSmsStatu" Width="1.5" PointX="5" PointY="0.75" />
+        <AssociationConnector Association="SSL_SMSModel.FK_SendSmsStatus_ContactGroup" />
+        <AssociationConnector Association="SSL_SMSModel.FK_SendSmsStatus_MessageGroup" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
