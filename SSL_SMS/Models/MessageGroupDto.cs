@@ -8,7 +8,7 @@ namespace SSL_SMS.Models
 {
     public class MessageGroupDto
     {
-        public int ID { get; set; }
+        public virtual int ID { get; set; }
 
         [Required]
         [Display(Name = "Group Name")]

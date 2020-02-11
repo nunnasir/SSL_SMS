@@ -4,15 +4,15 @@
 <hr />
 
 <div class="row">
-    
+
     <div class="col-sm">
         @*<p>
-            @Html.ActionLink("Create New", "Create")
-        </p>*@
+                @Html.ActionLink("Create New", "Create")
+            </p>*@
 
         <a class="btn btn-success btn-sm" href="@Url.Action("Create", "Message")">Create New</a>
 
-        <table class="table table-bordered table-hover">
+        <table id="message" class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th>
@@ -48,7 +48,12 @@
     </div>
 </div>
 
+@section Scripts {
+    <script>
 
+    </script>
+
+}
 
 
 
