@@ -1,25 +1,27 @@
-﻿@model IEnumerable<SSL_SMS.Models.MessageGroupDto>
+﻿@model IEnumerable<SSL_SMS.Models.ContactGroupDto>
 
-<h2>Group Messages</h2>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Contact Group</h2>
 <hr />
 
 <div class="row">
 
     <div class="col-sm">
-        @*<p>
-                @Html.ActionLink("Create New", "Create")
-            </p>*@
 
-        <a class="btn btn-success btn-sm" href="@Url.Action("Create", "Message")">Create New</a>
+        <a class="btn btn-success btn-sm" href="@Url.Action("Create", "ContactGrp")">Create New</a>
 
-        <table id="message" class="table table-bordered table-hover">
+        <table id="contacts" class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.GroupName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Message)
+                        @Html.DisplayNameFor(model => model.ContactList)
                     </th>
                     <th>Actions</th>
                 </tr>
@@ -33,14 +35,13 @@
                             @Html.DisplayFor(modelItem => item.GroupName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Message)
+                            @Html.DisplayFor(modelItem => item.ContactList)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "" }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "" }) |
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-default btn-sm" }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-default btn-sm" }) |
                             @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
-                            @*<button class='js-delete' data-group-id="@item.ID">Delete</button>*@
-                            <a href="#" class="js-delete" data-group-id="@item.ID">Delete</a>
+                            <button class='btn btn-default btn-sm js-delete' data-group-id="@item.ID">Delete</button>
                         </td>
                     </tr>
                 }
@@ -55,15 +56,15 @@
         $(document).ready(function () {
             //Toaster
             if ('@TempData["message"]' == "Added") {
-              toastr.success('New Message Group Added');
+              toastr.success('New Contact Group Added');
            }
            else if ('@TempData["message"]' == "Updated") {
-               toastr.success('Message Group Updated');
+               toastr.success('Contact Group Updated');
            }
             else { }
 
             //bootbox confirm
-            $("#message").on("click", ".js-delete",
+            $("#contacts").on("click", ".js-delete",
                 function () {
                     var button = $(this);
                     bootbox.confirm({
@@ -81,11 +82,11 @@
                         callback: function (result) {
                             if (result) {
                                 $.ajax({
-                                    url: "/Message/Delete/" + button.attr("data-group-id"),
+                                    url: "/ContactGrp/Delete/" + button.attr("data-group-id"),
                                     method: "POST",
                                     success: function (data) {
                                         if (data) {
-                                            toastr.success('Message Group Deleted');
+                                            toastr.success('Contact Group Deleted');
                                             setTimeout(function () {
                                                 location.reload();
                                             }, 1000);
@@ -102,3 +103,7 @@
 
     </script>
 }
+
+
+
+

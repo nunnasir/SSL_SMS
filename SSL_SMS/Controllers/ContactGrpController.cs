@@ -12,7 +12,7 @@ using SSL_SMS.Models;
 
 namespace SSL_SMS.Controllers
 {
-    public class ContactController : Controller
+    public class ContactGrpController : Controller
     {
         private SSL_SMSEntities db = new SSL_SMSEntities();
 
@@ -66,6 +66,9 @@ namespace SSL_SMS.Controllers
                 var contactGroup = Mapper.Map<ContactGroupDto, ContactGroup>(contactGroupDto);
                 db.ContactGroups.Add(contactGroup);
                 db.SaveChanges();
+
+                TempData["message"] = "Added";
+
                 return RedirectToAction("Index");
             }
 
@@ -102,29 +105,41 @@ namespace SSL_SMS.Controllers
 
                 db.Entry(contactGroup).State = EntityState.Modified;
                 db.SaveChanges();
+
+                TempData["message"] = "Updated";
+
                 return RedirectToAction("Index");
             }
             return View(contactGroupDto);
         }
 
-        public ActionResult Delete(int? id)
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var contactGroup = db.ContactGroups.Find(id);
+
+        //    if (contactGroup == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+
+        //    db.ContactGroups.Remove(contactGroup);
+        //    db.SaveChanges();
+
+        //    return RedirectToAction("Index");
+        //    //return View(contactGroup);
+        //}
+
+        [HttpPost]
+        public JsonResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var contactGroup = db.ContactGroups.Find(id);
-
-            if (contactGroup == null)
-            {
-                return HttpNotFound();
-            }
-
-            db.ContactGroups.Remove(contactGroup);
+            var contactGroups = db.ContactGroups.FirstOrDefault(m => m.ID == id);
+            db.ContactGroups.Remove(contactGroups);
             db.SaveChanges();
-
-            return RedirectToAction("Index");
-            //return View(contactGroup);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

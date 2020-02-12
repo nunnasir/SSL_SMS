@@ -22,12 +22,14 @@ namespace SSL_SMS
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.bundle.js",
                       "~/Scripts/bootbox.js",
+                      "~/Scripts/toastr.js",
                       "~/Scripts/custom.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/font-awesome.css",
                       "~/Content/custom.css",
+                      "~/Content/toastr.css",
                       "~/Content/site.css"));
         }
     }

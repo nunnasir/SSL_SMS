@@ -10,7 +10,7 @@
 
 @Html.ValidationSummary(true, "Please Fixed The Error", new { @class = "text-danger" })
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "newMessageGroup" }))
 {
     @Html.AntiForgeryToken()
 
@@ -46,9 +46,14 @@
 </div>
 
 @*<div>
-    <a class="btn btn-link" href="@Url.Action("Index", "Message")">Back to List</a>
-</div>*@
+        <a class="btn btn-link" href="@Url.Action("Index", "Message")">Back to List</a>
+    </div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        
+    </script>
+
 }

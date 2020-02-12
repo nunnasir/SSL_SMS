@@ -1,25 +1,24 @@
-﻿@model IEnumerable<SSL_SMS.Models.MessageGroupDto>
+﻿@model IEnumerable<SSL_SMS.Models.GroupDto>
 
-<h2>Group Messages</h2>
+@{
+    ViewBag.Title = "Group List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Groups</h2>
 <hr />
 
 <div class="row">
-
     <div class="col-sm">
-        @*<p>
-                @Html.ActionLink("Create New", "Create")
-            </p>*@
+        <p>
+            <a class="btn btn-success btn-sm" href="@Url.Action("Create", "Groups")">Create New</a>
+        </p>
 
-        <a class="btn btn-success btn-sm" href="@Url.Action("Create", "Message")">Create New</a>
-
-        <table id="message" class="table table-bordered table-hover">
+        <table id="groups" class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.GroupName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Message)
+                        @Html.DisplayNameFor(model => model.Name)
                     </th>
                     <th>Actions</th>
                 </tr>
@@ -30,40 +29,35 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.GroupName)
+                            @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Message)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "" }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "" }) |
-                            @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
-                            @*<button class='js-delete' data-group-id="@item.ID">Delete</button>*@
-                            <a href="#" class="js-delete" data-group-id="@item.ID">Delete</a>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "" }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "" }) |
+                            <a href="#" class="js-delete" data-group-id="@item.Id">Delete</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-
     </div>
 </div>
 
-@section Scripts {
+@section Scripts
+{
     <script type="text/javascript">
         $(document).ready(function () {
-            //Toaster
+            //Toaster 
             if ('@TempData["message"]' == "Added") {
-              toastr.success('New Message Group Added');
-           }
-           else if ('@TempData["message"]' == "Updated") {
-               toastr.success('Message Group Updated');
-           }
-            else { }
+                toastr.success('New Group Added');
+            } else if ('@TempData["message"]' == "Updated") {
+                toastr.success('Group Updated');
+            } else {
+
+            }
 
             //bootbox confirm
-            $("#message").on("click", ".js-delete",
+            $("#groups").on("click", ".js-delete",
                 function () {
                     var button = $(this);
                     bootbox.confirm({
@@ -81,24 +75,21 @@
                         callback: function (result) {
                             if (result) {
                                 $.ajax({
-                                    url: "/Message/Delete/" + button.attr("data-group-id"),
+                                    url: "/Groups/Delete/" + button.attr("data-group-id"),
                                     method: "POST",
                                     success: function (data) {
                                         if (data) {
-                                            toastr.success('Message Group Deleted');
+                                            toastr.success('Group Deleted');
                                             setTimeout(function () {
                                                 location.reload();
                                             }, 1000);
                                         }
-                                        //table.row(button.parents("tr")).remove().draw();
                                     }
                                 });
                             }
                         }
                     });
-
                 });
         });
-
     </script>
 }

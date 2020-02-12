@@ -67,6 +67,9 @@ namespace SSL_SMS.Controllers
 
                 db.MessageGroups.Add(messageGroup);
                 db.SaveChanges();
+
+                TempData["message"] = "Added";
+
                 return RedirectToAction("Index");
             }
 
@@ -90,8 +93,6 @@ namespace SSL_SMS.Controllers
         }
 
         // POST: Message/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public ActionResult Edit([Bind(Include = "GroupName,Message,Edit_User,Edit_Date")] MessageGroup messageGroup)
@@ -106,27 +107,41 @@ namespace SSL_SMS.Controllers
 
                 db.Entry(messageGroup).State = EntityState.Modified;
                 db.SaveChanges();
+
+                TempData["message"] = "Updated";
+
                 return RedirectToAction("Index");
             }
             return View(messageGroupDto);
         }
 
         // GET: Message/Delete/5
-        public ActionResult Delete(int? id)
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var messageGroup = db.MessageGroups.Find(id);
+        //    if (messageGroup == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    db.MessageGroups.Remove(messageGroup);
+        //    db.SaveChanges();
+
+        //    return RedirectToAction("Index");
+        //}
+
+        [HttpPost]
+        public JsonResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var messageGroup = db.MessageGroups.Find(id);
-            if (messageGroup == null)
-            {
-                return HttpNotFound();
-            }
+            var messageGroup = db.MessageGroups.FirstOrDefault(m => m.ID == id);
             db.MessageGroups.Remove(messageGroup);
+
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

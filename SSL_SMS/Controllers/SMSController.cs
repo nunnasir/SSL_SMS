@@ -62,7 +62,8 @@ namespace SSL_SMS.Controllers
             SendSmsStatu send = new SendSmsStatu();
             send.ContactGroupId = contactGroupId;
             send.MessageGroupId = messageGroupId;
-            send.Status = 0;
+
+            send.Status = status ? Convert.ToInt16(1) : Convert.ToInt16(0);
             send.SendUser = "Nasir Uddin";
             send.SendDate = DateTime.Now;
 
@@ -74,15 +75,19 @@ namespace SSL_SMS.Controllers
         [HttpPost]
         public ActionResult LoadContactList(int contactGroupId)
         {
-            var contactGroup = db.ContactGroups.Find(contactGroupId);
+            //var contactGroup = db.ContactGroups.Find(contactGroupId);
+            var contactGroup = db.ContactGroups.SingleOrDefault(m => m.ID == contactGroupId);
+
             return Json(contactGroup.ContactList);
         }
 
         [HttpPost]
         public ActionResult LoadMessage(int messageGroupId)
         {
-            var contactGroup = db.MessageGroups.Find(messageGroupId);
-            return Json(contactGroup.Message);
+            //var messageGroup = db.MessageGroups.Find(messageGroupId);
+            var messageGroup = db.MessageGroups.SingleOrDefault(m => m.ID == messageGroupId);
+
+            return Json(messageGroup.Message);
         }
 
         private bool SendSms(string contacts, string messages)

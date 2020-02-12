@@ -15,10 +15,14 @@ namespace SSL_SMS.App_Start
             //Data Model to Dto Model
             Mapper.CreateMap<ContactGroup, ContactGroupDto>();
             Mapper.CreateMap<MessageGroup, MessageGroupDto>();
+            Mapper.CreateMap<Group, GroupDto>();
+            Mapper.CreateMap<Contact, ContactDto>();
 
             //Dto Model to Data Model
             Mapper.CreateMap<ContactGroupDto, ContactGroup>();
             Mapper.CreateMap<MessageGroupDto, MessageGroup>();
+            Mapper.CreateMap<GroupDto, Group>();
+            Mapper.CreateMap<ContactDto, Contact>();
         }
     }
 }

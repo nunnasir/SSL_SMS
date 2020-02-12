@@ -10,6 +10,10 @@
         <EntityTypeShape EntityType="SSL_SMSModel.SendSmsStatu" Width="1.5" PointX="5" PointY="0.75" />
         <AssociationConnector Association="SSL_SMSModel.FK_SendSmsStatus_ContactGroup" />
         <AssociationConnector Association="SSL_SMSModel.FK_SendSmsStatus_MessageGroup" />
+        <EntityTypeShape EntityType="SSL_SMSModel.Contact" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="SSL_SMSModel.Group" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="SSL_SMSModel.SmsLog" Width="1.5" PointX="5.75" PointY="4.75" />
+        <AssociationConnector Association="SSL_SMSModel.FK_Contact_Group" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

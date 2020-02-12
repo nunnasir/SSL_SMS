@@ -7,7 +7,7 @@
 }
 
 <div>
-    <h4>Message Group : @Html.DisplayFor(model => model.GroupName)</h4>
+    <h4>Contact Group : @Html.DisplayFor(model => model.GroupName)</h4>
     <hr />
 
     <dl class="row">
@@ -32,8 +32,8 @@
 
 </div>
 <p>
-    <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", "Contact", new { id = Model.ID })">Edit</a>
-    <a class="btn btn-info btn-sm" href="@Url.Action("Index", "Contact")">Back to List</a>
+    <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", "ContactGrp", new { id = Model.ID })">Edit</a>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index", "ContactGrp")">Back to List</a>
 
     @*@Html.ActionLink("Back to List", "Index", "Contact", new { @class = "btn btn-info btn-sm" })*@
 </p>

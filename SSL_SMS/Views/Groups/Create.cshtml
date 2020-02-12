@@ -1,0 +1,52 @@
+﻿@model SSL_SMS.Models.GroupDto
+
+@{
+    ViewBag.Title = "Create Group";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Group</h2>
+<hr />
+
+@Html.ValidationSummary(true, "Please Fixed The Error", new { @class = "text-danger" })
+
+
+@*@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "newMessageGroup" }))*@
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+        <div class="col-sm-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Group Name", @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input type="submit" value="Create" class="btn btn-primary btn-sm" />
+        </div>
+    </div>
+
+    <hr />
+}
+
+<div>
+    <a class="btn btn-info btn-sm" href="@Url.Action("Index", "Groups")">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            if ('@TempData["message"]' == "Existed") {
+                toastr.error('Group Name Already Exist!');
+            }
+        });
+    </script>
+}

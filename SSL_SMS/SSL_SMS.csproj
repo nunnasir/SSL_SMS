@@ -134,11 +134,19 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\ContactGrpController.cs" />
+    <Compile Include="Controllers\ContactsController.cs" />
+    <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\SMSController.cs" />
+    <Compile Include="DAL\Contact.cs">
+      <DependentUpon>SMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\ContactGroup.cs">
+      <DependentUpon>SMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Group.cs">
       <DependentUpon>SMS.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\MessageGroup.cs">
@@ -162,10 +170,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SMS.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DAL\SmsLog.cs">
+      <DependentUpon>SMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ContactDto.cs" />
     <Compile Include="Models\ContactGroupDto.cs" />
+    <Compile Include="Models\GroupDto.cs" />
     <Compile Include="Models\MessageGroupDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\MessageGroupVm.cs" />
@@ -367,12 +380,22 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_Create.cshtml" />
-    <Content Include="Views\Contact\Create.cshtml" />
-    <Content Include="Views\Contact\Delete.cshtml" />
-    <Content Include="Views\Contact\Details.cshtml" />
-    <Content Include="Views\Contact\Edit.cshtml" />
-    <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\ContactGrp\Create.cshtml" />
+    <Content Include="Views\ContactGrp\Delete.cshtml" />
+    <Content Include="Views\ContactGrp\Details.cshtml" />
+    <Content Include="Views\ContactGrp\Edit.cshtml" />
+    <Content Include="Views\ContactGrp\Index.cshtml" />
     <Content Include="Views\SMS\Index.cshtml" />
+    <Content Include="Views\Groups\Create.cshtml" />
+    <Content Include="Views\Groups\Delete.cshtml" />
+    <Content Include="Views\Groups\Details.cshtml" />
+    <Content Include="Views\Groups\Edit.cshtml" />
+    <Content Include="Views\Groups\Index.cshtml" />
+    <Content Include="Views\Contacts\Create.cshtml" />
+    <Content Include="Views\Contacts\Delete.cshtml" />
+    <Content Include="Views\Contacts\Details.cshtml" />
+    <Content Include="Views\Contacts\Edit.cshtml" />
+    <Content Include="Views\Contacts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
