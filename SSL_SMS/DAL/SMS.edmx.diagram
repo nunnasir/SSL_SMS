@@ -4,16 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="48d6cdec9f51470ab390b58a89d21023" Name="Diagram1">
-        <EntityTypeShape EntityType="SSL_SMSModel.ContactGroup" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SSL_SMSModel.MessageGroup" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SSL_SMSModel.SendSmsStatu" Width="1.5" PointX="5" PointY="0.75" />
-        <AssociationConnector Association="SSL_SMSModel.FK_SendSmsStatus_ContactGroup" />
-        <AssociationConnector Association="SSL_SMSModel.FK_SendSmsStatus_MessageGroup" />
-        <EntityTypeShape EntityType="SSL_SMSModel.Contact" Width="1.5" PointX="3" PointY="5" />
-        <EntityTypeShape EntityType="SSL_SMSModel.Group" Width="1.5" PointX="0.75" PointY="5" />
-        <EntityTypeShape EntityType="SSL_SMSModel.SmsLog" Width="1.5" PointX="5.75" PointY="4.75" />
+      <Diagram DiagramId="48d6cdec9f51470ab390b58a89d21023" Name="Diagram1" DisplayType="true">
+        <EntityTypeShape EntityType="SSL_SMSModel.Contact" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="SSL_SMSModel.Group" Width="1.5" PointX="0.875" PointY="1.125" />
         <AssociationConnector Association="SSL_SMSModel.FK_Contact_Group" />
+        <EntityTypeShape EntityType="SSL_SMSModel.SmsLog" Width="1.5" PointX="5" PointY="0.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

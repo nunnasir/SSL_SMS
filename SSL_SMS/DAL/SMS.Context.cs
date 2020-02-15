@@ -25,9 +25,6 @@ namespace SSL_SMS.DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ContactGroup> ContactGroups { get; set; }
-        public virtual DbSet<MessageGroup> MessageGroups { get; set; }
-        public virtual DbSet<SendSmsStatu> SendSmsStatus { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<SmsLog> SmsLogs { get; set; }

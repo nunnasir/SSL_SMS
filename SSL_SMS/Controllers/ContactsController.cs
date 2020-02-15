@@ -50,21 +50,35 @@ namespace SSL_SMS.Controllers
         }
 
         // POST: Contacts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,GroupId,ContactList,CreateUser,CreateDate,UpdateUser,UpdateDate")] Contact contact)
+        public ActionResult Create(ContactDto contactDto)
         {
             if (ModelState.IsValid)
             {
+                int groupId = (int)contactDto.GroupId;
+                var existContact = db.Contacts.FirstOrDefault(g => g.GroupId == groupId);
+
+                if (existContact != null)
+                {
+                    TempData["message"] = "Existed";
+                    ViewBag.GroupId = new SelectList(db.Groups, "Id", "Name", contactDto.GroupId);
+                    return View(contactDto);
+                }
+
+                contactDto.CreateUser = "Nasir";
+                contactDto.CreateDate = DateTime.Now;
+
+                var contact = Mapper.Map<ContactDto, Contact>(contactDto);
+
                 db.Contacts.Add(contact);
                 db.SaveChanges();
+                TempData["message"] = "Added";
                 return RedirectToAction("Index");
             }
 
-            ViewBag.GroupId = new SelectList(db.Groups, "Id", "Name", contact.GroupId);
-            return View(contact);
+            ViewBag.GroupId = new SelectList(db.Groups, "Id", "Name", contactDto.GroupId);
+            return View(contactDto);
         }
 
         // GET: Contacts/Edit/5
@@ -74,30 +88,35 @@ namespace SSL_SMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contact contact = db.Contacts.Find(id);
+            Contact contact = db.Contacts.FirstOrDefault(g => g.Id == id);
             if (contact == null)
             {
                 return HttpNotFound();
             }
             ViewBag.GroupId = new SelectList(db.Groups, "Id", "Name", contact.GroupId);
-            return View(contact);
+
+            return View(Mapper.Map<Contact, ContactDto>(contact));
         }
 
         // POST: Contacts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,GroupId,ContactList,CreateUser,CreateDate,UpdateUser,UpdateDate")] Contact contact)
+        public ActionResult Edit(ContactDto contactDto)
         {
             if (ModelState.IsValid)
             {
+                contactDto.UpdateUser = "Nahid";
+                contactDto.UpdateDate = DateTime.Now;
+
+                var contact = Mapper.Map<ContactDto, Contact>(contactDto);
+
                 db.Entry(contact).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["message"] = "Updated";
                 return RedirectToAction("Index");
             }
-            ViewBag.GroupId = new SelectList(db.Groups, "Id", "Name", contact.GroupId);
-            return View(contact);
+            ViewBag.GroupId = new SelectList(db.Groups, "Id", "Name", contactDto.GroupId);
+            return View(contactDto);
         }
 
         //Groups/Delete/5

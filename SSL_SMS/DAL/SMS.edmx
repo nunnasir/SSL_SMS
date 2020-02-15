@@ -17,18 +17,6 @@
           <Property Name="UpdateUser" Type="varchar" MaxLength="50" />
           <Property Name="UpdateDate" Type="datetime" />
         </EntityType>
-        <EntityType Name="ContactGroup">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GroupName" Type="nvarchar" MaxLength="70" Nullable="false" />
-          <Property Name="ContactList" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="Create_User" Type="nchar" MaxLength="10" />
-          <Property Name="Create_Date" Type="datetime" />
-          <Property Name="Edit_User" Type="nchar" MaxLength="10" />
-          <Property Name="Edit_Date" Type="datetime" />
-        </EntityType>
         <EntityType Name="Group">
           <Key>
             <PropertyRef Name="Id" />
@@ -40,38 +28,16 @@
           <Property Name="UpdateUser" Type="varchar" MaxLength="10" />
           <Property Name="UpdateDate" Type="datetime" />
         </EntityType>
-        <EntityType Name="MessageGroup">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GroupName" Type="nvarchar" MaxLength="70" Nullable="false" />
-          <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="Create_User" Type="nchar" MaxLength="10" />
-          <Property Name="Create_Date" Type="datetime" />
-          <Property Name="Edit_User" Type="nchar" MaxLength="10" />
-          <Property Name="Edit_Date" Type="datetime" />
-        </EntityType>
-        <EntityType Name="SendSmsStatus">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MessageGroupId" Type="int" Nullable="false" />
-          <Property Name="ContactGroupId" Type="int" Nullable="false" />
-          <Property Name="Status" Type="smallint" />
-          <Property Name="SendUser" Type="nvarchar" MaxLength="50" />
-          <Property Name="SendDate" Type="datetime" />
-        </EntityType>
         <EntityType Name="SmsLog">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SmsType" Type="tinyint" />
-          <Property Name="Status" Type="tinyint" />
+          <Property Name="SmsType" Type="smallint" />
+          <Property Name="Status" Type="smallint" />
           <Property Name="SendUser" Type="varchar" MaxLength="50" />
           <Property Name="SendDate" Type="datetime" />
+          <Property Name="MessageStatus" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <Association Name="FK_Contact_Group">
           <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
@@ -85,137 +51,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SendSmsStatus_ContactGroup">
-          <End Role="ContactGroup" Type="Self.ContactGroup" Multiplicity="1" />
-          <End Role="SendSmsStatus" Type="Self.SendSmsStatus" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ContactGroup">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SendSmsStatus">
-              <PropertyRef Name="ContactGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SendSmsStatus_MessageGroup">
-          <End Role="MessageGroup" Type="Self.MessageGroup" Multiplicity="1" />
-          <End Role="SendSmsStatus" Type="Self.SendSmsStatus" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MessageGroup">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SendSmsStatus">
-              <PropertyRef Name="MessageGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SSL_SMSModelStoreContainer">
           <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ContactGroup" EntityType="Self.ContactGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MessageGroup" EntityType="Self.MessageGroup" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SendSmsStatus" EntityType="Self.SendSmsStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SmsLog" EntityType="Self.SmsLog" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Contact_Group" Association="Self.FK_Contact_Group">
             <End Role="Group" EntitySet="Group" />
             <End Role="Contact" EntitySet="Contact" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SendSmsStatus_ContactGroup" Association="Self.FK_SendSmsStatus_ContactGroup">
-            <End Role="ContactGroup" EntitySet="ContactGroup" />
-            <End Role="SendSmsStatus" EntitySet="SendSmsStatus" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SendSmsStatus_MessageGroup" Association="Self.FK_SendSmsStatus_MessageGroup">
-            <End Role="MessageGroup" EntitySet="MessageGroup" />
-            <End Role="SendSmsStatus" EntitySet="SendSmsStatus" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SSL_SMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="ContactGroup">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GroupName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContactList" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Create_User" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Create_Date" Type="DateTime" Precision="3" />
-          <Property Name="Edit_User" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Edit_Date" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="SendSmsStatus" Relationship="SSL_SMSModel.FK_SendSmsStatus_ContactGroup" FromRole="ContactGroup" ToRole="SendSmsStatu" />
-        </EntityType>
-        <EntityType Name="MessageGroup">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GroupName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Create_User" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Create_Date" Type="DateTime" Precision="3" />
-          <Property Name="Edit_User" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Edit_Date" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="SendSmsStatus" Relationship="SSL_SMSModel.FK_SendSmsStatus_MessageGroup" FromRole="MessageGroup" ToRole="SendSmsStatu" />
-        </EntityType>
         <EntityContainer Name="SSL_SMSEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ContactGroups" EntityType="Self.ContactGroup" />
-          <EntitySet Name="MessageGroups" EntityType="Self.MessageGroup" />
-          <EntitySet Name="SendSmsStatus" EntityType="SSL_SMSModel.SendSmsStatu" />
-          <AssociationSet Name="FK_SendSmsStatus_ContactGroup" Association="SSL_SMSModel.FK_SendSmsStatus_ContactGroup">
-            <End Role="ContactGroup" EntitySet="ContactGroups" />
-            <End Role="SendSmsStatu" EntitySet="SendSmsStatus" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SendSmsStatus_MessageGroup" Association="SSL_SMSModel.FK_SendSmsStatus_MessageGroup">
-            <End Role="MessageGroup" EntitySet="MessageGroups" />
-            <End Role="SendSmsStatu" EntitySet="SendSmsStatus" />
-          </AssociationSet>
           <EntitySet Name="Contacts" EntityType="SSL_SMSModel.Contact" />
           <EntitySet Name="Groups" EntityType="SSL_SMSModel.Group" />
-          <EntitySet Name="SmsLogs" EntityType="SSL_SMSModel.SmsLog" />
           <AssociationSet Name="FK_Contact_Group" Association="SSL_SMSModel.FK_Contact_Group">
             <End Role="Group" EntitySet="Groups" />
             <End Role="Contact" EntitySet="Contacts" />
           </AssociationSet>
+          <EntitySet Name="SmsLogs" EntityType="SSL_SMSModel.SmsLog" />
         </EntityContainer>
-        <EntityType Name="SendSmsStatu">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MessageGroupId" Type="Int32" Nullable="false" />
-          <Property Name="ContactGroupId" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="Int16" />
-          <Property Name="SendUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SendDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="ContactGroup" Relationship="SSL_SMSModel.FK_SendSmsStatus_ContactGroup" FromRole="SendSmsStatu" ToRole="ContactGroup" />
-          <NavigationProperty Name="MessageGroup" Relationship="SSL_SMSModel.FK_SendSmsStatus_MessageGroup" FromRole="SendSmsStatu" ToRole="MessageGroup" />
-        </EntityType>
-        <Association Name="FK_SendSmsStatus_ContactGroup">
-          <End Type="SSL_SMSModel.ContactGroup" Role="ContactGroup" Multiplicity="1" />
-          <End Type="SSL_SMSModel.SendSmsStatu" Role="SendSmsStatu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ContactGroup">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SendSmsStatu">
-              <PropertyRef Name="ContactGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SendSmsStatus_MessageGroup">
-          <End Type="SSL_SMSModel.MessageGroup" Role="MessageGroup" Multiplicity="1" />
-          <End Type="SSL_SMSModel.SendSmsStatu" Role="SendSmsStatu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MessageGroup">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SendSmsStatu">
-              <PropertyRef Name="MessageGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Contact">
           <Key>
             <PropertyRef Name="Id" />
@@ -241,16 +98,6 @@
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Contacts" Relationship="SSL_SMSModel.FK_Contact_Group" FromRole="Group" ToRole="Contact" />
         </EntityType>
-        <EntityType Name="SmsLog">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SmsType" Type="Byte" />
-          <Property Name="Status" Type="Byte" />
-          <Property Name="SendUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SendDate" Type="DateTime" Precision="3" />
-        </EntityType>
         <Association Name="FK_Contact_Group">
           <End Type="SSL_SMSModel.Group" Role="Group" Multiplicity="0..1" />
           <End Type="SSL_SMSModel.Contact" Role="Contact" Multiplicity="*" />
@@ -263,50 +110,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SmsLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SmsType" Type="Int16" />
+          <Property Name="Status" Type="Int16" />
+          <Property Name="SendUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SendDate" Type="DateTime" Precision="3" />
+          <Property Name="MessageStatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SSL_SMSModelStoreContainer" CdmEntityContainer="SSL_SMSEntities">
-          <EntitySetMapping Name="ContactGroups">
-            <EntityTypeMapping TypeName="SSL_SMSModel.ContactGroup">
-              <MappingFragment StoreEntitySet="ContactGroup">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
-                <ScalarProperty Name="ContactList" ColumnName="ContactList" />
-                <ScalarProperty Name="Create_User" ColumnName="Create_User" />
-                <ScalarProperty Name="Create_Date" ColumnName="Create_Date" />
-                <ScalarProperty Name="Edit_User" ColumnName="Edit_User" />
-                <ScalarProperty Name="Edit_Date" ColumnName="Edit_Date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MessageGroups">
-            <EntityTypeMapping TypeName="SSL_SMSModel.MessageGroup">
-              <MappingFragment StoreEntitySet="MessageGroup">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Create_User" ColumnName="Create_User" />
-                <ScalarProperty Name="Create_Date" ColumnName="Create_Date" />
-                <ScalarProperty Name="Edit_User" ColumnName="Edit_User" />
-                <ScalarProperty Name="Edit_Date" ColumnName="Edit_Date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SendSmsStatus">
-            <EntityTypeMapping TypeName="SSL_SMSModel.SendSmsStatu">
-              <MappingFragment StoreEntitySet="SendSmsStatus">
-                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
-                <ScalarProperty Name="SendUser" ColumnName="SendUser" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ContactGroupId" ColumnName="ContactGroupId" />
-                <ScalarProperty Name="MessageGroupId" ColumnName="MessageGroupId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Contacts">
             <EntityTypeMapping TypeName="SSL_SMSModel.Contact">
               <MappingFragment StoreEntitySet="Contact">
@@ -335,6 +155,7 @@
           <EntitySetMapping Name="SmsLogs">
             <EntityTypeMapping TypeName="SSL_SMSModel.SmsLog">
               <MappingFragment StoreEntitySet="SmsLog">
+                <ScalarProperty Name="MessageStatus" ColumnName="MessageStatus" />
                 <ScalarProperty Name="SendDate" ColumnName="SendDate" />
                 <ScalarProperty Name="SendUser" ColumnName="SendUser" />
                 <ScalarProperty Name="Status" ColumnName="Status" />

@@ -1,11 +1,11 @@
-﻿@model SSL_SMS.ViewModels.MessageGroupVm
+﻿@model SSL_SMS.ViewModels.SmsSendVm
 
 @{
     ViewBag.Title = "Send SMS";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Send SMS</h2>
+<h2>Send Groupwise SMS</h2>
 <hr />
 
 @Html.ValidationSummary(true, "Please Fixed The following Error", new { @class = "text-danger" })
@@ -17,7 +17,7 @@
     <div class="form-group row">
         @Html.LabelFor(model => model.ContactGroups, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
         <div class="col-sm-10">
-            @Html.DropDownListFor(c => c.SendSmsStatu.ContactGroupId, new SelectList(Model.ContactGroups, "ID", "GroupName"), "--Select One--", new { @id = "ddlContactGroup", @class = "form-control" })
+            @Html.DropDownListFor(c => c.SmsLogs.SmsType, new SelectList(Model.ContactGroups, "Id", "Name"), "[Select One]", new { @id = "ddlContactGroup", @class = "form-control" })
             @Html.ValidationMessageFor(model => model.ContactGroups, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -25,24 +25,14 @@
     <div class="form-group row">
         @Html.LabelFor(model => model.Contacts, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
         <div class="col-sm-10">
-            @*<textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>*@
-            @Html.TextAreaFor(model => model.Contacts, new { placeholder = "Enter Message", @id = "ContactBox", @class = "form-control", @rows = 2 })
+            @Html.TextAreaFor(model => model.Contacts, new { placeholder = "Enter Contacts", @id = "ContactBox", @class = "form-control", @rows = 2 })
             @Html.ValidationMessageFor(model => model.Contacts, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.MessageGroups, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-        <div class="col-sm-10">
-            @Html.DropDownListFor(c => c.SendSmsStatu.MessageGroupId, new SelectList(Model.MessageGroups, "ID", "GroupName"), "--Select One--", new { @id = "ddlMessageGroup", @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.MessageGroups, "", new { @id = "", @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group row">
         @Html.LabelFor(model => model.Messages, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
         <div class="col-sm-10">
-            @*<textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>*@
             @Html.TextAreaFor(model => model.Messages, new { placeholder = "Enter Message", @id = "MessageBox", @class = "form-control", @rows = 2 })
             @Html.ValidationMessageFor(model => model.Messages, "", new { @class = "text-danger" })
         </div>
@@ -51,10 +41,9 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-            <input type="submit" value="Send" class="btn btn-primary btn-sm btn-block" />
+            <input type="submit" value="Send SMS" class="btn btn-primary btn-sm btn-block" />
         </div>
     </div>
-
 }
 
 @section Scripts {
@@ -65,9 +54,9 @@
             // Load Contact List
             $('select#ddlContactGroup').change(function () {
                 var contactGroupId = $(this).val();
-
                 $.ajax({
-                    url: 'SMS/LoadContactList',
+                    url: 'GroupSms/LoadContactList',
+                    //url: 'LoadContactList',
                     type: 'POST',
                     data: JSON.stringify({ contactGroupId: contactGroupId }),
                     dataType: 'json',
@@ -79,26 +68,18 @@
                 });
             });
 
-            // Load Message
-            $('select#ddlMessageGroup').change(function () {
-                var messageGroupId = $(this).val();
+            //Toaster 
+            if ('@TempData["message"]' == "success") {
+                toastr.success('SMS Send Successfully');
+            } else if ('@TempData["message"]' == "failed") {
+                toastr.error('Something unexpected happened.');
+            } else {
 
-                $.ajax({
-                    url: 'SMS/LoadMessage',
-                    type: 'POST',
-                    data: JSON.stringify({ messageGroupId: messageGroupId }),
-                    dataType: 'json',
-                    contentType: 'application/json',
+            }
 
-                    success: function (data) {
-                        $('#MessageBox').val(data);
-                    }
-                });
-            });
 
         });
+
     </script>
-    
 
 }
-

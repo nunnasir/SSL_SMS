@@ -15,9 +15,10 @@ namespace SSL_SMS.DAL
     public partial class SmsLog
     {
         public int Id { get; set; }
-        public Nullable<byte> SmsType { get; set; }
-        public Nullable<byte> Status { get; set; }
+        public Nullable<short> SmsType { get; set; }
+        public Nullable<short> Status { get; set; }
         public string SendUser { get; set; }
         public Nullable<System.DateTime> SendDate { get; set; }
+        public string MessageStatus { get; set; }
     }
 }

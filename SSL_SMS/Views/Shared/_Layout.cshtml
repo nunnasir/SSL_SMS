@@ -64,10 +64,11 @@
                                             <a>Send SMS<span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
                                                 <li class="sub_menu">
-                                                    <a href="level2.html">Group</a>
+                                                    @Html.ActionLink("Group", "Index", "GroupSms")
                                                 </li>
+                                                
                                                 <li>
-                                                    <a href="#level2_1">Bulk</a>
+                                                    @Html.ActionLink("Bulk", "Index", "BulkSms")
                                                 </li>
                                             </ul>
                                         </li>
