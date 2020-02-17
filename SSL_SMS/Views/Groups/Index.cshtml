@@ -20,6 +20,12 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreateDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Contacts)
+                    </th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -30,6 +36,12 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreateDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contacts.Count)
                         </td>
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "" }) |
@@ -50,7 +62,8 @@
             //Toaster 
             if ('@TempData["message"]' == "Added") {
                 toastr.success('New Group Added');
-            } else if ('@TempData["message"]' == "Updated") {
+            }
+            else if ('@TempData["message"]' == "Updated") {
                 toastr.success('Group Updated');
             } else {
 

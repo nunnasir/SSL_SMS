@@ -73,9 +73,16 @@ namespace SSL_SMS.Controllers
             var groups = (from g in db.Groups
                           join c in db.Contacts on g.Id equals c.GroupId
                           where c.GroupId == contactGroupId
-                          select new { c, g }).SingleOrDefault();
+                          select new { c, g });
 
-            return Json(groups.c.ContactList);
+            var contactList = new List<string>();
+
+            foreach (var item in groups)
+            {
+                contactList.Add(item.c.ContactList);
+            }
+
+            return Json(string.Join(",", contactList.ToArray()));
         }
 
     }

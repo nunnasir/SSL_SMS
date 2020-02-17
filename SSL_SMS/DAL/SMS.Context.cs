@@ -28,5 +28,6 @@ namespace SSL_SMS.DAL
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<SmsLog> SmsLogs { get; set; }
+        public virtual DbSet<TbleUser> TbleUsers { get; set; }
     }
 }

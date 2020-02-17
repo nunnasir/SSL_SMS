@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url("https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot");
@@ -4018,24 +4018,8 @@ a.hiddenanchor {
   top: 0px;
   width: 100%; }
 
-.registration_form {
-  z-index: 21;
-  opacity: 0;
-  width: 100%; }
-
 .login_form {
   z-index: 22; }
-
-#signup:target ~ .login_wrapper .registration_form, #signin:target ~ .login_wrapper .login_form {
-  z-index: 22;
-  -webkit-animation-name: fadeInLeft;
-  animation-name: fadeInLeft;
-  -webkit-animation-delay: .1s;
-  animation-delay: .1s; }
-
-#signup:target ~ .login_wrapper .login_form, #signin:target ~ .login_wrapper .registration_form {
-  -webkit-animation-name: fadeOutLeft;
-  animation-name: fadeOutLeft; }
 
 .animate {
   -webkit-animation-duration: 0.5s;

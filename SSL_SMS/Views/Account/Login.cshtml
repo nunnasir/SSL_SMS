@@ -1,0 +1,52 @@
+﻿@model SSL_SMS.ViewModels.LoginVm
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+ 
+<div class="login_wrapper">
+    <div class="animate form login_form">
+        <section class="login_content">
+            @*@Html.ValidationSummary(true, "Please Fixed The Error", new { @class = "text-danger" })*@
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <h1>Login Form</h1>
+
+                <div>
+                    @Html.EditorFor(model => model.User_Name, new { htmlAttributes = new { placeholder = "Username", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.User_Name, "", new { @class = "text-danger" })
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.User_Password, new { htmlAttributes = new { placeholder = "Password", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.User_Password, "", new { @class = "text-danger" })
+                </div>
+                <div>
+                    <p class="text-danger">@Model.ErrorMessage</p>
+                </div>
+                <div>
+                    <input type="submit" value="Log in" class="btn btn-primary submit" />
+                    <a class="reset_pass" href="#">Lost your password?</a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="separator">
+                    <p class="change_link">
+                        New to site?
+                        <a href="@Url.Action("Create", "Account")" class="to_register"> Create Account </a>
+                    </p>
+                    <div class="clearfix"></div>
+                    <br />
+                    <div>
+                        <h1><i class="fa fa-envelope"></i> SSL SMS</h1>
+                        <p>©@DateTime.Now.Year All Rights Reserved. Subra System Ltd. Privacy and Terms</p>
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>
+    

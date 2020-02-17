@@ -1,0 +1,53 @@
+﻿@model SSL_SMS.ViewModels.AccountVm
+
+@{
+    ViewBag.Title = "Create Account";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div id="register" class="animate form registration_form">
+    <section class="login_content">
+        @using (Html.BeginForm("Create", "Account", FormMethod.Post, new { id = "loginForm" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <h1>Create Account</h1>
+
+            <div>
+                @Html.EditorFor(model => model.User_Name, new { htmlAttributes = new { placeholder = "Username", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User_Name, "", new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.EditorFor(model => model.User_Email, new { htmlAttributes = new { placeholder = "Email", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User_Email, "", new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.EditorFor(model => model.User_Password, new { htmlAttributes = new { placeholder = "Password", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User_Password, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { placeholder = "Confirm Password", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                <input style="margin-left: 0px" type="submit" value="Submit" class="btn btn-primary submit" />
+            </div>
+            <div class="clearfix"></div>
+            <div class="separator">
+                <p class="change_link">
+                    Already a member ?
+                    <a href="@Url.Action("Login", "Account")" class="to_register"> Log in </a>
+                </p>
+                <div class="clearfix"></div>
+                <br />
+                <div>
+                    <h1><i class="fa fa-envelope"></i> SSL SMS</h1>
+                    <p>©@DateTime.Now.Year All Rights Reserved. Subra System Ltd. Privacy and Terms</p>
+                </div>
+            </div>
+        }
+
+    </section>
+</div>

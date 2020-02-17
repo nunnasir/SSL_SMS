@@ -31,5 +31,9 @@ namespace SSL_SMS.Models
         public Nullable<System.DateTime> UpdateDate { get; set; }
 
         public virtual GroupDto Group { get; set; }
+
+        //public List<string> InvalidNumber { get; set; }
+        //public List<string> DuplicateNumber { get; set; }
+        //public int validNumber { get; set; }
     }
 }

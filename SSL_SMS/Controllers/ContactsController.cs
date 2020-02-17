@@ -22,7 +22,6 @@ namespace SSL_SMS.Controllers
             var contactQuery = db.Contacts.Include(c => c.Group)
                 .ToList()
                 .Select(Mapper.Map<Contact, ContactDto>);
-
             return View(contactQuery);
         }
 
@@ -45,8 +44,10 @@ namespace SSL_SMS.Controllers
         // GET: Contacts/Create
         public ActionResult Create()
         {
+            ContactDto model = new ContactDto();
+
             ViewBag.GroupId = new SelectList(db.Groups, "Id", "Name");
-            return View();
+            return View(model);
         }
 
         // POST: Contacts/Create
@@ -59,26 +60,82 @@ namespace SSL_SMS.Controllers
                 int groupId = (int)contactDto.GroupId;
                 var existContact = db.Contacts.FirstOrDefault(g => g.GroupId == groupId);
 
-                if (existContact != null)
+                //if (existContact != null)
+                //{
+                //    TempData["message"] = "Existed";
+                //    ViewBag.GroupId = new SelectList(db.Groups, "Id", "Name", contactDto.GroupId);
+                //    return View(contactDto);
+                //}
+
+                var contacts = contactDto.ContactList.Split(',');
+
+                var duplicate = new List<string>();
+                var invalid = new List<string>();
+                int valid = 0;
+
+                foreach (var item in contacts)
                 {
-                    TempData["message"] = "Existed";
-                    ViewBag.GroupId = new SelectList(db.Groups, "Id", "Name", contactDto.GroupId);
-                    return View(contactDto);
+                    var existNumber = db.Contacts.FirstOrDefault(g => g.GroupId == groupId && g.ContactList == item);
+
+                    if (!checkValidation(item))
+                    {
+                        invalid.Add(item);
+                    }
+                    else if(existNumber != null)
+                    {
+                        duplicate.Add(item);
+                    }
+                    else
+                    {
+                        Contact model = new Contact();
+                        model.ContactList = item;
+                        model.GroupId = groupId;
+                        model.CreateUser = "Nasir";
+                        model.CreateDate = DateTime.Now;
+                        db.Contacts.Add(model);
+                        db.SaveChanges();
+
+                        valid++;
+                    }
+                    
                 }
 
-                contactDto.CreateUser = "Nasir";
-                contactDto.CreateDate = DateTime.Now;
+                //contactDto.CreateUser = "Nasir";
+                //contactDto.CreateDate = DateTime.Now;
 
-                var contact = Mapper.Map<ContactDto, Contact>(contactDto);
+                //var contact = Mapper.Map<ContactDto, Contact>(contactDto);
 
-                db.Contacts.Add(contact);
-                db.SaveChanges();
+                //db.Contacts.Add(contact);
+                //db.SaveChanges();
+
+                //TempData["validNumber"] = valid;
                 TempData["message"] = "Added";
+                TempData["validNumber"] = valid;
                 return RedirectToAction("Index");
             }
 
             ViewBag.GroupId = new SelectList(db.Groups, "Id", "Name", contactDto.GroupId);
             return View(contactDto);
+        }
+
+        private bool checkValidation(string item)
+        {
+            var returnValue = true;
+
+            if (item.Length > 13 || item.Length < 10)
+            {
+                returnValue = false;
+            }
+            else if (item.Length == 13 && item.Substring(item.Length - 10) != "880")
+            {
+                returnValue = false;
+            }
+            else if (item.Length == 11 && item[0] != '0')
+            {
+                returnValue = false;
+            }
+
+            return returnValue;
         }
 
         // GET: Contacts/Edit/5

@@ -17,8 +17,8 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        @*<a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>*@
-                        @Html.ActionLink("SSL SMS", "Index", "Home", new { area = "" }, new { @class = "site_title" })
+                        <a class="site_title" @Url.Action("Index", "Home")><i class="fa fa-envelope"></i> <span>SSL SMS</span></a>
+                        @*@Html.ActionLink("SSL SMS", "Index", "Home", new { area = "" }, new { @class = "site_title" })*@
                     </div>
                     <div class="clearfix"></div>
                     <!-- menu profile quick info -->
@@ -56,6 +56,22 @@
                                 </li>
 
                                 <li>
+                                    <a><i class="fa fa-group"></i> Manage Group <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>@Html.ActionLink("Add Group", "Index", "Groups")</li>
+                                        <li>@Html.ActionLink("Add Group Contacts", "Index", "Contacts")</li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a><i class="fa fa-envelope"></i> Send SMS <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>@Html.ActionLink("Group SMS", "Index", "GroupSms")</li>
+                                        <li>@Html.ActionLink("Bulk SMS", "Index", "BulkSms")</li>
+                                    </ul>
+                                </li>
+
+                                @*<li>
                                     <a><i class="fa fa-envelope"></i> SSl SMS <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li>@Html.ActionLink("Group Create", "Index", "Groups")</li>
@@ -73,7 +89,7 @@
                                             </ul>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>*@
                             </ul>
                         </div>
                     </div>

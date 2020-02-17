@@ -18,12 +18,15 @@ namespace SSL_SMS.Models
         public string CreateUser { get; set; }
 
         [Display(Name = "Create Date")]
-        public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<DateTime> CreateDate { get; set; }
 
         [Display(Name = "Update User")]
         public string UpdateUser { get; set; }
 
         [Display(Name = "Update Date")]
-        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public Nullable<DateTime> UpdateDate { get; set; }
+
+        [Display(Name = "Total Contacts")]
+        public virtual ICollection<ContactDto> Contacts { get; set; }
     }
 }
