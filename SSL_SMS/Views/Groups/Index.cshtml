@@ -59,6 +59,9 @@
 {
     <script type="text/javascript">
         $(document).ready(function () {
+
+            $("#groups").dataTable();
+
             //Toaster 
             if ('@TempData["message"]' == "Added") {
                 toastr.success('New Group Added');

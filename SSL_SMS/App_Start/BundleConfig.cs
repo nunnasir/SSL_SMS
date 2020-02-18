@@ -23,6 +23,8 @@ namespace SSL_SMS
                       "~/Scripts/bootstrap.bundle.js",
                       "~/Scripts/bootbox.js",
                       "~/Scripts/toastr.js",
+                      "~/Scripts/DataTables/jquery.dataTables.js",
+                      "~/Scripts/DataTables/dataTables.bootstrap4.js",
                       "~/Scripts/custom.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -30,6 +32,7 @@ namespace SSL_SMS
                       "~/Content/font-awesome.css",
                       "~/Content/custom.css",
                       "~/Content/toastr.css",
+                      "~/Content/DataTables/css/dataTables.bootstrap4.css",
                       "~/Content/site.css"));
         }
     }

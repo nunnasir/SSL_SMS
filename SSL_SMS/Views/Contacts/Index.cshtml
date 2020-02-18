@@ -59,6 +59,8 @@
 {
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#contacts").dataTable();
+
             var number = '@TempData["validNumber"]';
             //Toaster
             if ('@TempData["message"]' == "Added" && number > 0) {
@@ -66,8 +68,10 @@
             }
             else if ('@TempData["message"]' == "Updated") {
                 toastr.success('Contacts Updated');
-            } else {
+            } else if (number == 0 && number != '') {
                 toastr.error('Either Duplicate or Invalid Number');
+            } else {
+
             }
 
             //bootbox confirm

@@ -25,6 +25,8 @@ namespace SSL_SMS.Controllers
             return View(contactQuery);
         }
 
+
+
         // GET: Contacts/Details/5
         public ActionResult Details(int? id)
         {
