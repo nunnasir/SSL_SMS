@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
+using OfficeOpenXml;
 using SSL_SMS.DAL;
 using SSL_SMS.Models;
 
@@ -121,6 +122,52 @@ namespace SSL_SMS.Controllers
             db.Groups.Remove(group);
             db.SaveChanges();
             return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public void DownlloadContactList(int id)
+        {
+            var groups = (from g in db.Groups
+                          join c in db.Contacts on g.Id equals c.GroupId
+                          where c.GroupId == id
+                          select new { c, g });
+
+            var groupName = groups.ToList().Select(g => g.g.Name).FirstOrDefault();
+            
+
+            ExcelPackage Ep = new ExcelPackage();
+            ExcelWorksheet Sheet = Ep.Workbook.Worksheets.Add(groupName + " Groups Contacts");
+
+            Sheet.Cells["A1"].Value = "Group Name";
+            Sheet.Cells["B1"].Value = "Contact Number";
+            Sheet.Cells["C1"].Value = "Create Date";
+            int row = 2;
+            foreach (var item in groups)
+            {
+                Sheet.Cells[string.Format("A{0}", row)].Value = item.g.Name;
+                Sheet.Cells[string.Format("B{0}", row)].Value = item.c.ContactList;
+                Sheet.Cells[string.Format("C{0}", row)].Value = String.Format("{0:MM/dd/yyyy}", item.c.CreateDate);
+
+                row++;
+            }
+            Sheet.Cells["A:AZ"].AutoFitColumns();
+
+            string handle = Guid.NewGuid().ToString();
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                Ep.SaveAs(memoryStream);
+                memoryStream.Position = 0;
+                TempData[handle] = memoryStream.ToArray();
+            }
+
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader(
+                "content-disposition",
+                string.Format("attachment;  filename={0}", groupName + " group contact List " + String.Format("{0:MM/dd/yyyy}", DateTime.Now) + ".xlsx"));
+
+            Response.BinaryWrite(Ep.GetAsByteArray());
+            Response.End();
         }
 
         protected override void Dispose(bool disposing)

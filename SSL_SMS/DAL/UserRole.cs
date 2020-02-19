@@ -12,28 +12,16 @@ namespace SSL_SMS.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class TbleUser
+    public partial class UserRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TbleUser()
+        public UserRole()
         {
             this.UserRoleMappings = new HashSet<UserRoleMapping>();
         }
     
         public int Id { get; set; }
-        public string User_Name { get; set; }
-        public string User_Email { get; set; }
-        public string User_Password { get; set; }
-        public string User_Contact { get; set; }
-        public string User_FirstName { get; set; }
-        public string User_LastName { get; set; }
-        public Nullable<short> Confirm_Email { get; set; }
-        public Nullable<int> RoleId { get; set; }
-        public Nullable<short> IsActive { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
-        public Nullable<System.DateTime> ConfirmDate { get; set; }
-        public string UpdateUser { get; set; }
-        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string RoleName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRoleMapping> UserRoleMappings { get; set; }

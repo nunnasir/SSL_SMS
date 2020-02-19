@@ -10,6 +10,10 @@
         <AssociationConnector Association="SSL_SMSModel.FK_Contact_Group" />
         <EntityTypeShape EntityType="SSL_SMSModel.SmsLog" Width="1.5" PointX="5" PointY="0.875" />
         <EntityTypeShape EntityType="SSL_SMSModel.TbleUser" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SSL_SMSModel.UserRole" Width="1.5" PointX="3.375" PointY="5.125" />
+        <EntityTypeShape EntityType="SSL_SMSModel.UserRoleMapping" Width="1.5" PointX="5.625" PointY="5.75" />
+        <AssociationConnector Association="SSL_SMSModel.FK_UserRoleMapping_TbleUser" />
+        <AssociationConnector Association="SSL_SMSModel.FK_UserRoleMapping_UserRole" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

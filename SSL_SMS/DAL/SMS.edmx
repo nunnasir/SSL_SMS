@@ -58,6 +58,21 @@
           <Property Name="UpdateUser" Type="nvarchar" MaxLength="50" />
           <Property Name="UpdateDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserRoleMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TblUserId" Type="int" />
+          <Property Name="UserRoleId" Type="int" />
+        </EntityType>
         <Association Name="FK_Contact_Group">
           <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
           <End Role="Contact" Type="Self.Contact" Multiplicity="*" />
@@ -70,14 +85,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserRoleMapping_TbleUser">
+          <End Role="TbleUser" Type="Self.TbleUser" Multiplicity="0..1" />
+          <End Role="UserRoleMapping" Type="Self.UserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbleUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoleMapping">
+              <PropertyRef Name="TblUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoleMapping_UserRole">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
+          <End Role="UserRoleMapping" Type="Self.UserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoleMapping">
+              <PropertyRef Name="UserRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SSL_SMSModelStoreContainer">
           <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SmsLog" EntityType="Self.SmsLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TbleUser" EntityType="Self.TbleUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoleMapping" EntityType="Self.UserRoleMapping" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Contact_Group" Association="Self.FK_Contact_Group">
             <End Role="Group" EntitySet="Group" />
             <End Role="Contact" EntitySet="Contact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoleMapping_TbleUser" Association="Self.FK_UserRoleMapping_TbleUser">
+            <End Role="TbleUser" EntitySet="TbleUser" />
+            <End Role="UserRoleMapping" EntitySet="UserRoleMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoleMapping_UserRole" Association="Self.FK_UserRoleMapping_UserRole">
+            <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="UserRoleMapping" EntitySet="UserRoleMapping" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -93,6 +142,16 @@
           </AssociationSet>
           <EntitySet Name="SmsLogs" EntityType="SSL_SMSModel.SmsLog" />
           <EntitySet Name="TbleUsers" EntityType="SSL_SMSModel.TbleUser" />
+          <EntitySet Name="UserRoles" EntityType="SSL_SMSModel.UserRole" />
+          <EntitySet Name="UserRoleMappings" EntityType="SSL_SMSModel.UserRoleMapping" />
+          <AssociationSet Name="FK_UserRoleMapping_TbleUser" Association="SSL_SMSModel.FK_UserRoleMapping_TbleUser">
+            <End Role="TbleUser" EntitySet="TbleUsers" />
+            <End Role="UserRoleMapping" EntitySet="UserRoleMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoleMapping_UserRole" Association="SSL_SMSModel.FK_UserRoleMapping_UserRole">
+            <End Role="UserRole" EntitySet="UserRoles" />
+            <End Role="UserRoleMapping" EntitySet="UserRoleMappings" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Contact">
           <Key>
@@ -160,7 +219,50 @@
           <Property Name="ConfirmDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserRoleMappings" Relationship="SSL_SMSModel.FK_UserRoleMapping_TbleUser" FromRole="TbleUser" ToRole="UserRoleMapping" />
         </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserRoleMappings" Relationship="SSL_SMSModel.FK_UserRoleMapping_UserRole" FromRole="UserRole" ToRole="UserRoleMapping" />
+        </EntityType>
+        <EntityType Name="UserRoleMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TblUserId" Type="Int32" />
+          <Property Name="UserRoleId" Type="Int32" />
+          <NavigationProperty Name="TbleUser" Relationship="SSL_SMSModel.FK_UserRoleMapping_TbleUser" FromRole="UserRoleMapping" ToRole="TbleUser" />
+          <NavigationProperty Name="UserRole" Relationship="SSL_SMSModel.FK_UserRoleMapping_UserRole" FromRole="UserRoleMapping" ToRole="UserRole" />
+        </EntityType>
+        <Association Name="FK_UserRoleMapping_TbleUser">
+          <End Type="SSL_SMSModel.TbleUser" Role="TbleUser" Multiplicity="0..1" />
+          <End Type="SSL_SMSModel.UserRoleMapping" Role="UserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbleUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoleMapping">
+              <PropertyRef Name="TblUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoleMapping_UserRole">
+          <End Type="SSL_SMSModel.UserRole" Role="UserRole" Multiplicity="0..1" />
+          <End Type="SSL_SMSModel.UserRoleMapping" Role="UserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoleMapping">
+              <PropertyRef Name="UserRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -220,6 +322,23 @@
                 <ScalarProperty Name="User_Password" ColumnName="User_Password" />
                 <ScalarProperty Name="User_Email" ColumnName="User_Email" />
                 <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="SSL_SMSModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoleMappings">
+            <EntityTypeMapping TypeName="SSL_SMSModel.UserRoleMapping">
+              <MappingFragment StoreEntitySet="UserRoleMapping">
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+                <ScalarProperty Name="TblUserId" ColumnName="TblUserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

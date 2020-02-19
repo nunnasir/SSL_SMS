@@ -13,6 +13,12 @@
         <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Name)</dt>
         <dd class="col-sm-10">@Html.DisplayFor(model => model.Name)</dd>
 
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Contacts)</dt>
+        <dd class="col-sm-10">
+            @*<button class="btn btn-link btn-sm" id="btnDownload">Download Excel</button>*@
+            <a href="#" id="btnDownload" data-group-id="@Model.Id">Download Excel</a>
+        </dd>
+
         <dt class="col-sm-2">@Html.DisplayNameFor(model => model.CreateUser)</dt>
         <dd class="col-sm-10">@Html.DisplayFor(model => model.CreateUser)</dd>
 
@@ -31,3 +37,14 @@
     <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", "Groups", new { id = Model.Id })">Edit</a>
     <a class="btn btn-info btn-sm" href="@Url.Action("Index", "Groups")">Back to List</a>
 </p>
+
+@section Scripts
+{
+    <script>
+        var id = @Html.Raw(Json.Encode(Model.Id));
+        $(document).on('click', '#btnDownload', function () {
+            window.open('/Groups/DownlloadContactList?id='+ id +'', '_blank');
+        });
+
+    </script>
+}
