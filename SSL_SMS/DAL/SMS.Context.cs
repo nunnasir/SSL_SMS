@@ -25,6 +25,10 @@ namespace SSL_SMS.DAL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<SmsLog> SmsLogs { get; set; }

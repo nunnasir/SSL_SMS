@@ -14,6 +14,9 @@ namespace SSL_SMS.Controllers
     public class BulkSmsController : Controller
     {
         private SSL_SMSEntities db = new SSL_SMSEntities();
+
+        private SSL_SMSEntities _context;
+
         SendSmsBLL _smsbll = new SendSmsBLL();
 
         // GET: BulkSms

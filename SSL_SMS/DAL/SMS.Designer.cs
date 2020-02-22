@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Projects\SSL_SMS\SSL_SMS\DAL\SMS.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\SSL_SMS\SSL_SMS\DAL\SMS.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

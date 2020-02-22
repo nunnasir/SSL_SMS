@@ -4,16 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="48d6cdec9f51470ab390b58a89d21023" Name="Diagram1" DisplayType="false">
-        <EntityTypeShape EntityType="SSL_SMSModel.Contact" Width="1.5" PointX="3" PointY="0.75" />
-        <EntityTypeShape EntityType="SSL_SMSModel.Group" Width="1.5" PointX="0.875" PointY="1.125" />
-        <AssociationConnector Association="SSL_SMSModel.FK_Contact_Group" />
-        <EntityTypeShape EntityType="SSL_SMSModel.SmsLog" Width="1.5" PointX="5" PointY="0.875" />
-        <EntityTypeShape EntityType="SSL_SMSModel.TbleUser" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="SSL_SMSModel.UserRole" Width="1.5" PointX="3.375" PointY="5.125" />
-        <EntityTypeShape EntityType="SSL_SMSModel.UserRoleMapping" Width="1.5" PointX="5.625" PointY="5.75" />
-        <AssociationConnector Association="SSL_SMSModel.FK_UserRoleMapping_TbleUser" />
-        <AssociationConnector Association="SSL_SMSModel.FK_UserRoleMapping_UserRole" />
+      <Diagram DiagramId="77c19bb8e6154f1c8e3d586e72b8ee95" Name="Diagram1">
+        <EntityTypeShape EntityType="SSL_SMSModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSL_SMSModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSL_SMSModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSL_SMSModel.AspNetUser" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSL_SMSModel.Contact" Width="1.5" PointX="8" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSL_SMSModel.Group" Width="1.5" PointX="5.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSL_SMSModel.SmsLog" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSL_SMSModel.TbleUser" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSL_SMSModel.UserRole" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SSL_SMSModel.UserRoleMapping" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="SSL_SMSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="SSL_SMSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="SSL_SMSModel.FK_Contact_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="SSL_SMSModel.FK_UserRoleMapping_TbleUser" ManuallyRouted="false" />
+        <AssociationConnector Association="SSL_SMSModel.FK_UserRoleMapping_UserRole" ManuallyRouted="false" />
+        <AssociationConnector Association="SSL_SMSModel.AspNetUserRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

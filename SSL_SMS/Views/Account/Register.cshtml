@@ -1,19 +1,19 @@
-﻿@using SSL_SMS.Models
-@model LoginViewModel
+﻿@model SSL_SMS.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <div class="login_wrapper">
-    <div class="animate form login_form">
+    <div id="register" class="animate form registration_form">
         <section class="login_content">
-            @*@Html.ValidationSummary(true, "Please Fixed The Error", new { @class = "text-danger" })*@
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
 
-                <h1>Login Form</h1>
+                <h1>Create Account</h1>
+                @Html.ValidationSummary("", new { @class = "text-danger" })
 
                 <div>
                     @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Email", @class = "form-control" } })
@@ -23,18 +23,20 @@
                     @Html.EditorFor(model => model.Password, new { htmlAttributes = new { placeholder = "Password", @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                 </div>
+
                 <div>
-                    <input type="submit" value="Log in" class="btn btn-primary submit" />
-                    <a class="reset_pass" href="#">Lost your password?</a>
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { placeholder = "Confirm Password", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
                 </div>
 
+                <div>
+                    <input style="margin-left: 0px" type="submit" value="Submit" class="btn btn-primary submit" />
+                </div>
                 <div class="clearfix"></div>
-
                 <div class="separator">
                     <p class="change_link">
-                        New to site?
-                        <a href="@Url.Action("Register", "Account")" class="to_register"> Create Account </a>
-                        @*@Html.ActionLink("Register as a new user", "Register")*@
+                        Already a member ?
+                        <a href="@Url.Action("Login", "Account")" class="to_register"> Log in </a>
                     </p>
                     <div class="clearfix"></div>
                     <br />
@@ -44,6 +46,7 @@
                     </div>
                 </div>
             }
+
         </section>
     </div>
 </div>

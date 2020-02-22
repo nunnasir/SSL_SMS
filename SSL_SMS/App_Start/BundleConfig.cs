@@ -30,6 +30,7 @@ namespace SSL_SMS
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/font-awesome.css",
+                      "~/Content/animate.css",
                       "~/Content/custom.css",
                       "~/Content/toastr.css",
                       "~/Content/DataTables/css/dataTables.bootstrap4.css",
